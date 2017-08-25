@@ -20,6 +20,9 @@ for i in "$@"
         --goarch=*)
             GO_ARCH="${i#*=}"
         ;;
+        --etcdurl=*)
+            ETCD_URL="${i#*=}"
+        ;;
         *)
         # unknown option
         ;;
@@ -34,4 +37,4 @@ if [ -n "${QEMU_ARCH}" ]; then
     tar -xvf x86_64_qemu-${QEMU_ARCH}-static.tar.gz -C $ROOTFS/usr/bin/
 fi
 
-docker build --build-arg arch="${ARCH}" --build-arg etcdversion="${VERSION}" --build-arg goarch="${GO_ARCH}" -t "${DOCKER_REPO}:${ARCH}-${VERSION}" ./
+docker build --build-arg arch="${ARCH}" --build-arg goarch="${GO_ARCH}" --build-arg etcdurl="${ETCD_URL}" -t "${DOCKER_REPO}:${ARCH}-${VERSION}" ./

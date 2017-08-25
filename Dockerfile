@@ -1,7 +1,7 @@
 ARG arch
 FROM multiarch/debian-debootstrap:${arch}-stretch
 
-ARG etcdversion
+ARG etcdurl
 ARG arch
 ARG goversion=1.9
 ARG goarch
@@ -11,7 +11,7 @@ RUN wget -O -  "https://golang.org/dl/go${goversion}.linux-${goarch}.tar.gz" | t
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
-RUN wget -O - "https://github.com/coreos/etcd/releases/download/${etcdversion}/${etcdversion}.tar.gz" | tar -xz &&\
+RUN wget -O - ${etcdurl} | tar -xz &&\
     cd etcd-* &&\
     ./build && \
     mv ./bin/* /usr/bin/ &&\
