@@ -17,6 +17,7 @@ for i in "$@"
         ;;
         --repo=*)
             DOCKER_REPO="${i#*=}"
+        ;;
         --goarch=*)
             GO_ARCH="${i#*=}"
         ;;
