@@ -6,13 +6,13 @@ env:
         - QEMU_VER=v2.9.1
         - DOCKER_REPO=maartje/etcd-multiarch
     matrix:
-        - ARCH=amd64    VERSION=v3.2.6    QEMU_ARCH=x86_64  GO_ARCH=amd64   ETCD_URL=https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz
-        - ARCH=armhf    VERSION=v3.2.6    QEMU_ARCH=arm     GO_ARCH=armv6l  ETCD_URL=https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz
-        - ARCH=arm64    VERSION=v3.2.6    QEMU_ARCH=aarch64 GO_ARCH=arm64   ETCD_URL=https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz 
+        - ARCH=amd64    VERSION=v3.2.6    QEMU_ARCH=x86_64  GO_ARCH=amd64   ETCD_URL="https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz"
+        - ARCH=armhf    VERSION=v3.2.6    QEMU_ARCH=arm     GO_ARCH=armv6l  ETCD_URL="https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz"
+        - ARCH=arm64    VERSION=v3.2.6    QEMU_ARCH=aarch64 GO_ARCH=arm64   ETCD_URL="https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz" 
 
-        - ARCH=amd64    VERSION=v2.3.8    QEMU_ARCH=x86_64  GO_ARCH=amd64   ETCD_URL=https://github.com/coreos/etcd/archive/v2.3.8.tar.gz
-        - ARCH=armhf    VERSION=v2.3.8    QEMU_ARCH=arm     GO_ARCH=armv6l  ETCD_URL=https://github.com/coreos/etcd/archive/v2.3.8.tar.gz
-        - ARCH=arm64    VERSION=v2.3.8    QEMU_ARCH=aarch64 GO_ARCH=arm64   ETCD_URL=https://github.com/coreos/etcd/archive/v2.3.8.tar.gz
+        - ARCH=amd64    VERSION=v2.3.8    QEMU_ARCH=x86_64  GO_ARCH=amd64   ETCD_URL="https://github.com/coreos/etcd/archive/v2.3.8.tar.gz"
+        - ARCH=armhf    VERSION=v2.3.8    QEMU_ARCH=arm     GO_ARCH=armv6l  ETCD_URL="https://github.com/coreos/etcd/archive/v2.3.8.tar.gz"
+        - ARCH=arm64    VERSION=v2.3.8    QEMU_ARCH=aarch64 GO_ARCH=arm64   ETCD_URL="https://github.com/coreos/etcd/archive/v2.3.8.tar.gz"
 
 before_install:
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -24,7 +24,7 @@ before_script:
     - sudo apt-get -y install qemu-user-static
     - docker run --rm --privileged multiarch/qemu-user-static:register
 script:
-    - sudo ./build.sh --arch ="$ARCH" --version ="$VERSION" --qemuarch="$QEMU_ARCH" --qemuversion="$QEMU_VER" --repo="$DOCKER_REPO"--goarch="$GO_ARCH" --etcdurl="$ETCD_URL" 
+    - sudo ./build.sh --arch="$ARCH" --version="$VERSION" --qemuarch="$QEMU_ARCH" --qemuversion="$QEMU_VER" --repo="$DOCKER_REPO"--goarch="$GO_ARCH" --etcdurl="$ETCD_URL" 
 after_success:
     - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
     - docker push $DOCKER_REPO
