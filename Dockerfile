@@ -1,14 +1,20 @@
 ARG arch
-FROM multiarch/alpine:${arch}-latest-stable
+FROM multiarch/debian-debootstrap:${arch}-stretch
 
 ARG etcdversion
 ARG arch
+ARG goversion=1.9
 
-RUN apk add --no-cache wget tar ca-certificates
+RUN apt-get update && apt-get install -y wget tar git
+RUN wget -O -  "https://golang.org/dl/go${goversion}.linux-${arch}.tar.gz" | tar xzC /usr/local
+ENV GOPATH /go
+ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
-RUN wget -O - "https://github.com/coreos/etcd/releases/download/${etcdversion}/etcd-${etcdversion}-linux-${arch}.tar.gz" | tar -xz &&\
-    mv etcd-${etcdversion}-linux-${arch}/etcd /usr/bin/etcd &&\
-    mv etcd-v${etcdversion}-linux-${arch}/etcdctl /usr/bin/etcdctl &&\
-    rm -fr etcd-${etcdversion}-linux-${arch}
+RUN wget -O - "https://github.com/coreos/etcd/releases/download/${etcdversion}/${etcdversion}.tar.gz" | tar -xz &&\
+    ls && cd etcd-* &&\
+    ./build && \
+    mv /usr/src/etcd/bin/* /usr/bin/ &&\
+    rm -fr etcd-* 
+
 
 ENTRYPOINT /usr/bin/etcd
