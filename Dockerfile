@@ -11,7 +11,7 @@ ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
 RUN wget -O - "https://github.com/coreos/etcd/releases/download/${etcdversion}/${etcdversion}.tar.gz" | tar -xz &&\
-    ls && cd etcd-* &&\
+    cd etcd-* &&\
     ./build && \
     mv /usr/src/etcd/bin/* /usr/bin/ &&\
     rm -fr etcd-* 
