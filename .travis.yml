@@ -16,11 +16,9 @@ env:
         - ARCH=armhf    VERSION=v2.3.8    QEMU_ARCH=arm
         - ARCH=arm64    VERSION=v2.3.8    QEMU_ARCH=aarch64
 
-       
-
 before_script:
     - sudo apt-get -y install qemu-user-static
-    - 
+    - docker run --rm --privileged multiarch/qemu-user-static:register
 script:
     - sudo ./update.sh --arch ="$ARCH" --version ="$VERSION" --qemuarch="$QEMU_ARCH" --qemuversion="$QEMU_VER" --repo="$DOCKER_REPO"
 after_success:
