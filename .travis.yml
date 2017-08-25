@@ -16,6 +16,12 @@ env:
         - ARCH=armhf    VERSION=v2.3.8    QEMU_ARCH=arm
         - ARCH=arm64    VERSION=v2.3.8    QEMU_ARCH=aarch64
 
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y install docker-ce
+
 before_script:
     - sudo apt-get -y install qemu-user-static
     - docker run --rm --privileged multiarch/qemu-user-static:register
