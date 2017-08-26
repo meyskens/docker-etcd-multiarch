@@ -18,4 +18,4 @@ RUN wget -O - ${etcdurl} | tar -xz &&\
     rm -fr etcd-* 
 
 
-ENTRYPOINT /usr/bin/etcd
+CMD /usr/bin/etcd
