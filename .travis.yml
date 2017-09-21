@@ -6,6 +6,10 @@ env:
         - QEMU_VER=v2.9.1
         - DOCKER_REPO=maartje/etcd-multiarch
     matrix:
+        - ARCH=amd64    VERSION=v3.2.7    QEMU_ARCH=x86_64  GO_ARCH=amd64   ETCD_URL="https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz"
+        - ARCH=armhf    VERSION=v3.2.7    QEMU_ARCH=arm     GO_ARCH=armv6l  ETCD_URL="https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz"
+        - ARCH=arm64    VERSION=v3.2.7    QEMU_ARCH=aarch64 GO_ARCH=arm64   ETCD_URL="https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz" 
+
         - ARCH=amd64    VERSION=v3.2.6    QEMU_ARCH=x86_64  GO_ARCH=amd64   ETCD_URL="https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz"
         - ARCH=armhf    VERSION=v3.2.6    QEMU_ARCH=arm     GO_ARCH=armv6l  ETCD_URL="https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz"
         - ARCH=arm64    VERSION=v3.2.6    QEMU_ARCH=aarch64 GO_ARCH=arm64   ETCD_URL="https://github.com/coreos/etcd/releases/download/v3.2.6/v3.2.6.tar.gz" 
