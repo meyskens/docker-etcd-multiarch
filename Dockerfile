@@ -3,7 +3,7 @@ FROM multiarch/debian-debootstrap:${arch}-stretch
 
 ARG etcdurl
 ARG arch
-ARG goversion=1.9
+ARG goversion=1.9.2
 ARG goarch
 
 RUN apt-get update && apt-get install -y wget tar git
